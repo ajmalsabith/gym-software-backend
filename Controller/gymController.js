@@ -41,8 +41,37 @@ const InsertGym = async (req, res) => {
   };
   
 
+  const EditGym = async (req, res) => {
+    try {
+      const body = req.body; 
+      const { gymId } = body.id
+      const { data } = body.obj
+
+  
+      const result = await Gym.updateOne(
+        { gymId }, 
+        { $set: data }, 
+        { runValidators: true } 
+      );
+  
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ message: "Gym not found" });
+      }
+  
+      if (result.modifiedCount === 0) {
+        return res.status(200).json({ message: "No changes made to the gym" });
+      }
+  
+      res.status(200).json({ message: "Gym updated successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error updating gym", error: error.message });
+    }
+  };
+  
+
 
   module.exports={
-    InsertGym
+    InsertGym,
+    EditGym
   }
 
