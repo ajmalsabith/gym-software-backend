@@ -5,7 +5,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRouter= require('./Router/userRouter')
 const adminRouter= require('./Router/adminRouter')
-const apiauth= require('./Auth/apiAuth')
+const apiauth= require('./Auth/apiAuth');
+const CommonApiRoutes = require('./Router/CommonRoutesApis');
 const app=express()
 
 
@@ -17,12 +18,12 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
-app.use(apiauth)
 
 
 
 app.use('/',userRouter)
-app.use('/admin',adminRouter)
+app.use('/admin', apiauth, adminRouter);
+app.use('/common', apiauth, CommonApiRoutes);
 
 
 // mongoose.connect(process.env.mongoConnectionString);
@@ -30,7 +31,7 @@ app.use('/admin',adminRouter)
 // connection.on('connected', () => console.log('mongoDB connected'));
 // connection.on('error', (error) => console.log('mongodb connection fail', error));
 
-mongoose.connect(process.env.mongouri)
+mongoose.connect(process.env.mongodburinew)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Database connection error:', err));
 

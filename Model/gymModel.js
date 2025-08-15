@@ -37,7 +37,6 @@ const GymSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    address: {
       line1: {
         type: String,
       },
@@ -56,7 +55,6 @@ const GymSchema = new mongoose.Schema(
       zip: {
         type: String,
       },
-    },
     logo: {
       type: String, 
     },
