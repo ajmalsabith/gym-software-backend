@@ -8,6 +8,7 @@ const adminRouter= require('./Router/adminRouter')
 const apiauth= require('./Auth/apiAuth');
 const CommonApiRoutes = require('./Router/CommonRoutesApis');
 const app=express()
+const bodyParser = require("body-parser");
 
 
 app.use(cors({
@@ -15,13 +16,15 @@ app.use(cors({
     origin:['http://localhost:4200']
 }))
 
+
+
 app.use(cookieParser());
 app.use(express.json());
 
 
 
 
-app.use('/',userRouter)
+app.use('/user',userRouter)
 app.use('/admin', apiauth, adminRouter);
 app.use('/common', apiauth, CommonApiRoutes);
 
